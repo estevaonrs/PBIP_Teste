@@ -1,0 +1,29 @@
+relationship 1f2dabeb-3add-2a02-b3c2-9f7cad4d0f8e
+	crossFilteringBehavior: bothDirections
+	fromColumn: 'GCP Billing'.sku_id
+	toColumn: skus.id
+
+relationship 4cb465ac-a419-4dab-9c13-0c2254b26575
+	crossFilteringBehavior: bothDirections
+	fromColumn: 'GCP Billing'.project_id
+	toColumn: projects.id
+
+relationship 643b4fb6-f157-45c9-a655-e89ffe599168
+	crossFilteringBehavior: bothDirections
+	fromColumn: projects_ancestors.project_id
+	toColumn: projects.id
+
+relationship 6268e98e-490d-4300-b2d3-e731b133c910
+	crossFilteringBehavior: bothDirections
+	fromColumn: 'GCP Billing'.service_id
+	toColumn: services.id
+
+relationship c495c3d0-2900-4bcd-94ad-db0e03c1c80b
+	crossFilteringBehavior: bothDirections
+	fromColumn: projects_labels.project_id
+	toColumn: projects.id
+
+relationship 1e21f039-433d-49d5-b6cc-4688482a50ea
+	fromColumn: 'GCP Billing'.Data
+	toColumn: Date.Date
+

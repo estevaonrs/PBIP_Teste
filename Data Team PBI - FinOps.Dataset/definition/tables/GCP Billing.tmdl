@@ -1,0 +1,226 @@
+table 'GCP Billing'
+	lineageTag: ad46f6e7-1914-4bb8-8d2e-127a84c495d9
+
+	column billing_account_id
+		dataType: string
+		lineageTag: da1d8b10-074e-41fe-85b8-2d219af9cbab
+		summarizeBy: none
+		sourceColumn: billing_account_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column service_id
+		dataType: string
+		lineageTag: 54f8aa8d-f1c6-41f5-9cdc-a97b114c4943
+		summarizeBy: none
+		sourceColumn: service_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column sku_id
+		dataType: string
+		lineageTag: 6d34a18d-ba82-4f05-afa0-6083f20933d3
+		summarizeBy: none
+		sourceColumn: sku_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column usage_start_time
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: f9df1e4c-1870-4008-beed-60cae7fc483c
+		summarizeBy: none
+		sourceColumn: usage_start_time
+
+		annotation SummarizationSetBy = Automatic
+
+	column usage_end_time
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 3a320120-3969-4fff-96d3-ed39fcea1cb4
+		summarizeBy: none
+		sourceColumn: usage_end_time
+
+		annotation SummarizationSetBy = Automatic
+
+	column project_id
+		dataType: string
+		lineageTag: 84e0bcac-6342-46d0-9f7d-9f18fe2d6a94
+		summarizeBy: none
+		sourceColumn: project_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column location
+		dataType: string
+		lineageTag: 3d65380a-24d6-4e4e-9453-e3d5d49eb482
+		summarizeBy: none
+		sourceColumn: location
+
+		annotation SummarizationSetBy = Automatic
+
+	column resource_name
+		dataType: string
+		lineageTag: 16e2bb3e-ee6e-425c-9820-4673c975a4de
+		summarizeBy: none
+		sourceColumn: resource_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column resource_global_name
+		dataType: string
+		lineageTag: aa278436-f0d5-4383-ba25-ec79ddc14494
+		summarizeBy: none
+		sourceColumn: resource_global_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column transaction_type
+		dataType: string
+		lineageTag: f2470367-70c3-49d4-8083-732a4d3b27bf
+		summarizeBy: none
+		sourceColumn: transaction_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column seller_name
+		dataType: string
+		lineageTag: 1d216967-9422-4cdc-9657-496add3a95a8
+		summarizeBy: none
+		sourceColumn: seller_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column export_time
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 4820c06a-b68c-448d-ac4e-2c03c222abcb
+		summarizeBy: none
+		sourceColumn: export_time
+
+		annotation SummarizationSetBy = Automatic
+
+	column cost
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 5ff445d2-b5cf-4320-bb56-bddbf6807b06
+		summarizeBy: sum
+		sourceColumn: cost
+
+		annotation SummarizationSetBy = User
+
+	column currency
+		dataType: string
+		lineageTag: da063a4e-9e16-4a0c-8035-fafd66fac264
+		summarizeBy: none
+		sourceColumn: currency
+
+		annotation SummarizationSetBy = Automatic
+
+	column currency_conversion_rate
+		dataType: double
+		lineageTag: 3707f393-c602-47b0-9c35-a566fb7b68ee
+		summarizeBy: sum
+		sourceColumn: currency_conversion_rate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column usage_amount
+		dataType: double
+		lineageTag: 2264b4be-f3e4-4384-83f2-771d82f1eea6
+		summarizeBy: sum
+		sourceColumn: usage_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column usage_unit
+		dataType: string
+		lineageTag: ca2fac6d-06aa-4154-8727-6213adfb93f3
+		summarizeBy: none
+		sourceColumn: usage_unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column usage_amount_in_pricing_units
+		dataType: double
+		lineageTag: 1bff342e-949a-4ca5-be2a-179f8fca2452
+		summarizeBy: sum
+		sourceColumn: usage_amount_in_pricing_units
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column usage_pricing_unit
+		dataType: string
+		lineageTag: 21de88f6-ad70-45c2-9487-7b14583ba97e
+		summarizeBy: none
+		sourceColumn: usage_pricing_unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column invoice_month
+		dataType: string
+		lineageTag: bfc24297-afc4-4de9-be8a-0426e104d8bd
+		summarizeBy: none
+		sourceColumn: invoice_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column cost_type
+		dataType: string
+		lineageTag: ae56e0b6-a414-4e1f-95b5-6a6c40c9cf31
+		summarizeBy: none
+		sourceColumn: cost_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column cost_at_list
+		dataType: double
+		lineageTag: 0e3993ad-7f62-4e82-8845-b0332c16030b
+		summarizeBy: sum
+		sourceColumn: cost_at_list
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Data = ```
+			INT([usage_end_time]) 
+			//DATE(YEAR('GCP Billing'[usage_end_time]), MONTH('GCP Billing'[usage_end_time]), (DAY('GCP Billing'[usage_end_time]))
+			
+			
+			```
+		dataType: dateTime
+		isHidden
+		formatString: yyyy-mm-dd
+		lineageTag: e19f5c0b-68df-409e-824b-ebe92b41f38e
+		summarizeBy: none
+
+		changedProperty = DataType
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	partition 'GCP Billing' = m
+		mode: import
+		queryGroup: 'GCP BILLING'
+		source =
+				let
+				    Source = Value.NativeQuery(GoogleBigQuery.Database(){[Name="incentive-me-2019"]}[Data], "SELECT * FROM `incentive-me-2019.tmp.billing`", null, [EnableFolding=true])
+				in
+				    Source
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

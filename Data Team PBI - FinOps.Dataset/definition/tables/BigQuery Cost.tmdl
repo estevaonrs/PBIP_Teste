@@ -1,0 +1,940 @@
+table 'BigQuery Cost'
+	lineageTag: 87b5f287-10a6-41a3-95fc-b03cf3f03340
+
+	measure 'Gigabytes Billed' = SUM('BigQuery Cost'[gb_billed])
+		lineageTag: 75c60711-ed91-4c3e-b37b-b78cfc33ade1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'YTD Gigabytes Billed' =
+			
+			IF (
+			    [_ShowValueForDates],
+			    VAR __LastDayAvailable = MAX ( 'Date'[Day of Fiscal Year Number] )
+			    VAR __LastFiscalYearAvailable = MAX ( 'Date'[Fiscal Year Number] )
+			    VAR __Result =
+			        CALCULATE (
+			            [Gigabytes Billed],
+			            ALLEXCEPT ( 'Date', 'Date'[Day of Week Number], 'Date'[Day of Week] ),
+			            'Date'[Day of Fiscal Year Number] <= __LastDayAvailable,
+			            'Date'[Fiscal Year Number] = __LastFiscalYearAvailable
+			        )
+			    RETURN
+			        __Result
+			)
+		displayFolder: Time intelligence\To-date total\Gigabytes Billed
+		lineageTag: 824882f3-048e-40a1-aa80-1307afaf3e46
+
+		annotation SQLBI_Template = TimeIntelligence
+
+		annotation SQLBI_TimeIntelligence = Weekly
+
+		annotation SQLBI_CalendarType = Weekly
+
+	measure 'QTD Gigabytes Billed' =
+			
+			IF (
+			    [_ShowValueForDates],
+			    VAR __LastDayAvailable = MAX ( 'Date'[Day of Fiscal Quarter Number] )
+			    VAR __LastFiscalYearQuarterAvailable = MAX ( 'Date'[Fiscal Year Quarter Number] )
+			    VAR __Result =
+			        CALCULATE (
+			            [Gigabytes Billed],
+			            ALLEXCEPT ( 'Date', 'Date'[Day of Week Number], 'Date'[Day of Week] ),
+			            'Date'[Day of Fiscal Quarter Number] <= __LastDayAvailable,
+			            'Date'[Fiscal Year Quarter Number] = __LastFiscalYearQuarterAvailable
+			        )
+			    RETURN
+			        __Result
+			)
+		displayFolder: Time intelligence\To-date total\Gigabytes Billed
+		lineageTag: b1181e91-b49b-496c-bddf-51e2cd690785
+
+		annotation SQLBI_Template = TimeIntelligence
+
+		annotation SQLBI_TimeIntelligence = Weekly
+
+		annotation SQLBI_CalendarType = Weekly
+
+	measure 'MTD Gigabytes Billed' =
+			
+			IF (
+			    [_ShowValueForDates],
+			    VAR __LastDayAvailable = MAX ( 'Date'[Day of Fiscal Month Number] )
+			    VAR __LastFiscalYearMonthAvailable = MAX ( 'Date'[Fiscal Year Month Number] )
+			    VAR __Result =
+			        CALCULATE (
+			            [Gigabytes Billed],
+			            ALLEXCEPT ( 'Date', 'Date'[Day of Week Number], 'Date'[Day of Week] ),
+			            'Date'[Day of Fiscal Month Number] <= __LastDayAvailable,
+			            'Date'[Fiscal Year Month Number] = __LastFiscalYearMonthAvailable
+			        )
+			    RETURN
+			        __Result
+			)
+		displayFolder: Time intelligence\To-date total\Gigabytes Billed
+		lineageTag: 75d6438b-dcff-46f3-bb20-9cb129ea5b04
+
+		annotation SQLBI_Template = TimeIntelligence
+
+		annotation SQLBI_TimeIntelligence = Weekly
+
+		annotation SQLBI_CalendarType = Weekly
+
+	measure 'WTD Gigabytes Billed' =
+			
+			IF (
+			    [_ShowValueForDates],
+			    VAR __LastDayAvailable = MAX ( 'Date'[Day of Week Number] )
+			    VAR __LastFiscalYearWeekAvailable = MAX ( 'Date'[Fiscal Year Week Number] )
+			    VAR __Result =
+			        CALCULATE (
+			            [Gigabytes Billed],
+			            ALLEXCEPT ( 'Date', 'Date'[Day of Week Number], 'Date'[Day of Week] ),
+			            'Date'[Day of Week Number] <= __LastDayAvailable,
+			            'Date'[Fiscal Year Week Number] = __LastFiscalYearWeekAvailable
+			        )
+			    RETURN
+			        __Result
+			)
+		displayFolder: Time intelligence\To-date total\Gigabytes Billed
+		lineageTag: 02d63b26-c460-4274-ba49-d55c8302a8d5
+
+		annotation SQLBI_Template = TimeIntelligence
+
+		annotation SQLBI_TimeIntelligence = Weekly
+
+		annotation SQLBI_CalendarType = Weekly
+
+	measure 'PY Gigabytes Billed' =
+			
+			IF (
+			    [_ShowValueForDates],
+			    SUMX (
+			        VALUES ( 'Date'[Fiscal Year Number] ),
+			        VAR __CurrentFiscalYearNumber = 'Date'[Fiscal Year Number]
+			        VAR __DaysSelected =
+			            CALCULATETABLE (
+			                VALUES ( 'Date'[Day of Fiscal Year Number] ),
+			                REMOVEFILTERS ( 'Date'[Day of Week Number], 'Date'[Day of Week] ),
+			                'Date'[DateWithTransactions] = TRUE
+			            )
+			        RETURN
+			            CALCULATE (
+			                [Gigabytes Billed],
+			                'Date'[Fiscal Year Number] = __CurrentFiscalYearNumber - 1,
+			                __DaysSelected,
+			                ALLEXCEPT ( 'Date', 'Date'[Day of Week Number], 'Date'[Day of Week] )
+			            )
+			    )
+			)
+		displayFolder: Time intelligence\Growth\Gigabytes Billed
+		lineageTag: a27bddfb-b897-47a9-b080-59cf0ff5d54c
+
+		annotation SQLBI_Template = TimeIntelligence
+
+		annotation SQLBI_TimeIntelligence = Weekly
+
+		annotation SQLBI_CalendarType = Weekly
+
+	measure 'YOY Gigabytes Billed' =
+			
+			VAR __ValueCurrentPeriod = [Gigabytes Billed]
+			VAR __ValuePreviousPeriod = [PY Gigabytes Billed]
+			VAR __Result =
+			    IF (
+			        NOT ISBLANK ( __ValueCurrentPeriod ) && NOT ISBLANK ( __ValuePreviousPeriod ),
+			        __ValueCurrentPeriod - __ValuePreviousPeriod
+			    )
+			RETURN
+			    __Result
+		displayFolder: Time intelligence\Growth\Gigabytes Billed
+		lineageTag: 7d0f0c1b-1584-400b-a7fa-31efe020104d
+
+		annotation SQLBI_Template = TimeIntelligence
+
+		annotation SQLBI_TimeIntelligence = Weekly
+
+		annotation SQLBI_CalendarType = Weekly
+
+	measure 'YOY % Gigabytes Billed' =
+			
+			DIVIDE (
+			    [YOY Gigabytes Billed],
+			    [PY Gigabytes Billed]
+			)
+		formatString: 0.00%
+		displayFolder: Time intelligence\Growth\Gigabytes Billed
+		lineageTag: 863b6370-079e-4cc2-8b29-c764664640c0
+
+		annotation SQLBI_Template = TimeIntelligence
+
+		annotation SQLBI_TimeIntelligence = Weekly
+
+		annotation SQLBI_CalendarType = Weekly
+
+	measure 'PQ Gigabytes Billed' =
+			
+			IF (
+			    [_ShowValueForDates],
+			    SUMX (
+			        VALUES ( 'Date'[Fiscal Year Quarter Number] ),
+			        VAR __CurrentFiscalYearQuarterNumber = 'Date'[Fiscal Year Quarter Number]
+			        VAR __DaysSelected =
+			            CALCULATETABLE (
+			                VALUES ( 'Date'[Day of Fiscal Quarter Number] ),
+			                REMOVEFILTERS ( 'Date'[Day of Week Number], 'Date'[Day of Week] ),
+			                'Date'[DateWithTransactions] = TRUE
+			            )
+			        RETURN
+			            CALCULATE (
+			                [Gigabytes Billed],
+			                'Date'[Fiscal Year Quarter Number] = __CurrentFiscalYearQuarterNumber - 1,
+			                __DaysSelected,
+			                ALLEXCEPT ( 'Date', 'Date'[Day of Week Number], 'Date'[Day of Week] )
+			            )
+			    )
+			)
+		displayFolder: Time intelligence\Growth\Gigabytes Billed
+		lineageTag: 213cecf9-b2b1-419a-ba8a-073cdbcca624
+
+		annotation SQLBI_Template = TimeIntelligence
+
+		annotation SQLBI_TimeIntelligence = Weekly
+
+		annotation SQLBI_CalendarType = Weekly
+
+	measure 'QOQ Gigabytes Billed' =
+			
+			VAR __ValueCurrentPeriod = [Gigabytes Billed]
+			VAR __ValuePreviousPeriod = [PQ Gigabytes Billed]
+			VAR __Result =
+			    IF (
+			        NOT ISBLANK ( __ValueCurrentPeriod ) && NOT ISBLANK ( __ValuePreviousPeriod ),
+			        __ValueCurrentPeriod - __ValuePreviousPeriod
+			    )
+			RETURN
+			    __Result
+		displayFolder: Time intelligence\Growth\Gigabytes Billed
+		lineageTag: f80e5766-53d4-41b0-9f55-6db2f64dd363
+
+		annotation SQLBI_Template = TimeIntelligence
+
+		annotation SQLBI_TimeIntelligence = Weekly
+
+		annotation SQLBI_CalendarType = Weekly
+
+	measure 'QOQ % Gigabytes Billed' =
+			
+			DIVIDE (
+			    [QOQ Gigabytes Billed],
+			    [PQ Gigabytes Billed]
+			)
+		formatString: 0.00%
+		displayFolder: Time intelligence\Growth\Gigabytes Billed
+		lineageTag: 6c4707f4-06ef-47d3-a2b6-3d85330ef2fc
+
+		annotation SQLBI_Template = TimeIntelligence
+
+		annotation SQLBI_TimeIntelligence = Weekly
+
+		annotation SQLBI_CalendarType = Weekly
+
+	measure 'PW Gigabytes Billed' =
+			
+			IF (
+			    [_ShowValueForDates],
+			    SUMX (
+			        VALUES ( 'Date'[Fiscal Year Week Number] ),
+			        VAR __CurrentFiscalYearWeekNumber = 'Date'[Fiscal Year Week Number]
+			        VAR __DaysSelected =
+			            CALCULATETABLE (
+			                VALUES ( 'Date'[Day of Week Number] ),
+			                REMOVEFILTERS ( 'Date'[Day of Week Number], 'Date'[Day of Week] ),
+			                'Date'[DateWithTransactions] = TRUE
+			            )
+			        RETURN
+			            CALCULATE (
+			                [Gigabytes Billed],
+			                'Date'[Fiscal Year Week Number] = __CurrentFiscalYearWeekNumber - 1,
+			                __DaysSelected,
+			                ALLEXCEPT ( 'Date', 'Date'[Day of Week Number], 'Date'[Day of Week] )
+			            )
+			    )
+			)
+		displayFolder: Time intelligence\Growth\Gigabytes Billed
+		lineageTag: d2017ad7-1db9-4e83-899a-9dddaa522420
+
+		annotation SQLBI_Template = TimeIntelligence
+
+		annotation SQLBI_TimeIntelligence = Weekly
+
+		annotation SQLBI_CalendarType = Weekly
+
+	measure 'WOW Gigabytes Billed' =
+			
+			VAR __ValueCurrentPeriod = [Gigabytes Billed]
+			VAR __ValuePreviousPeriod = [PW Gigabytes Billed]
+			VAR __Result =
+			    IF (
+			        NOT ISBLANK ( __ValueCurrentPeriod ) && NOT ISBLANK ( __ValuePreviousPeriod ),
+			        __ValueCurrentPeriod - __ValuePreviousPeriod
+			    )
+			RETURN
+			    __Result
+		displayFolder: Time intelligence\Growth\Gigabytes Billed
+		lineageTag: 77c0caba-95f8-45a9-966a-1e70c31f1359
+
+		annotation SQLBI_Template = TimeIntelligence
+
+		annotation SQLBI_TimeIntelligence = Weekly
+
+		annotation SQLBI_CalendarType = Weekly
+
+	measure 'WOW % Gigabytes Billed' =
+			
+			DIVIDE (
+			    [WOW Gigabytes Billed],
+			    [PW Gigabytes Billed]
+			)
+		formatString: 0.00%
+		displayFolder: Time intelligence\Growth\Gigabytes Billed
+		lineageTag: 230ef412-c712-4133-8e2c-d277d3c5f85c
+
+		annotation SQLBI_Template = TimeIntelligence
+
+		annotation SQLBI_TimeIntelligence = Weekly
+
+		annotation SQLBI_CalendarType = Weekly
+
+	measure 'PYTD Gigabytes Billed' =
+			
+			IF (
+			    [_ShowValueForDates],
+			    VAR __PreviousFiscalYear = MAX ( 'Date'[Fiscal Year Number] ) - 1
+			    VAR __LastDayOfFiscalYearAvailable =
+			        CALCULATE (
+			            MAX ( 'Date'[Day of Fiscal Year Number] ),
+			            -- Removes filters from filter-safe columns
+			            -- to get the last day with data selected in the report
+			            REMOVEFILTERS ( 'Date'[Day of Week Number], 'Date'[Day of Week] ),
+			            'Date'[DateWithTransactions] = TRUE
+			        )
+			    VAR __Result =
+			        CALCULATE (
+			            [Gigabytes Billed],
+			            ALLEXCEPT ( 'Date', 'Date'[Day of Week Number], 'Date'[Day of Week] ),
+			            'Date'[Fiscal Year Number] = __PreviousFiscalYear,
+			            'Date'[Day of Fiscal Year Number] <= __LastDayOfFiscalYearAvailable,
+			            'Date'[DateWithTransactions] = TRUE
+			        )
+			    RETURN
+			        __Result
+			)
+		displayFolder: Time intelligence\To-date growth\Gigabytes Billed
+		lineageTag: 5b85f9ad-10de-4dee-b190-a22fc04f3f54
+
+		annotation SQLBI_Template = TimeIntelligence
+
+		annotation SQLBI_TimeIntelligence = Weekly
+
+		annotation SQLBI_CalendarType = Weekly
+
+	measure 'YOYTD Gigabytes Billed' =
+			
+			VAR __ValueCurrentPeriod = [YTD Gigabytes Billed]
+			VAR __ValuePreviousPeriod = [PYTD Gigabytes Billed]
+			VAR __Result =
+			    IF (
+			        NOT ISBLANK ( __ValueCurrentPeriod ) && NOT ISBLANK ( __ValuePreviousPeriod ),
+			        __ValueCurrentPeriod - __ValuePreviousPeriod
+			    )
+			RETURN
+			    __Result
+		displayFolder: Time intelligence\To-date growth\Gigabytes Billed
+		lineageTag: ef4d711a-0e8c-4387-9fe9-bff08be095ac
+
+		annotation SQLBI_Template = TimeIntelligence
+
+		annotation SQLBI_TimeIntelligence = Weekly
+
+		annotation SQLBI_CalendarType = Weekly
+
+	measure 'YOYTD % Gigabytes Billed' =
+			
+			DIVIDE (
+			    [YOYTD Gigabytes Billed],
+			    [PYTD Gigabytes Billed]
+			)
+		formatString: 0.00%
+		displayFolder: Time intelligence\To-date growth\Gigabytes Billed
+		lineageTag: b20aaaf1-e361-411d-9dab-4d7fa4dec8ae
+
+		annotation SQLBI_Template = TimeIntelligence
+
+		annotation SQLBI_TimeIntelligence = Weekly
+
+		annotation SQLBI_CalendarType = Weekly
+
+	measure 'PQTD Gigabytes Billed' =
+			
+			IF (
+			    [_ShowValueForDates],
+			    VAR __PreviousFiscalYearQuarter = MAX ( 'Date'[Fiscal Year Quarter Number] ) - 1
+			    VAR __LastDayOfFiscalYearQuarterAvailable =
+			        CALCULATE (
+			            MAX ( 'Date'[Day of Fiscal Quarter Number] ),
+			            -- Removes filters from filter-safe columns
+			            -- to get the last day with data selected in the report
+			            REMOVEFILTERS ( 'Date'[Day of Week Number], 'Date'[Day of Week] ),
+			            'Date'[DateWithTransactions] = TRUE
+			        )
+			    VAR __Result =
+			        CALCULATE (
+			            [Gigabytes Billed],
+			            ALLEXCEPT ( 'Date', 'Date'[Day of Week Number], 'Date'[Day of Week] ),
+			            'Date'[Fiscal Year Quarter Number] = __PreviousFiscalYearQuarter,
+			            'Date'[Day of Fiscal Quarter Number] <= __LastDayOfFiscalYearQuarterAvailable,
+			            'Date'[DateWithTransactions] = TRUE
+			        )
+			    RETURN
+			        __Result
+			)
+		displayFolder: Time intelligence\To-date growth\Gigabytes Billed
+		lineageTag: 1fdb0c09-6863-4f35-a525-1dc64af5a4ce
+
+		annotation SQLBI_Template = TimeIntelligence
+
+		annotation SQLBI_TimeIntelligence = Weekly
+
+		annotation SQLBI_CalendarType = Weekly
+
+	measure 'QOQTD Gigabytes Billed' =
+			
+			VAR __ValueCurrentPeriod = [QTD Gigabytes Billed]
+			VAR __ValuePreviousPeriod = [PQTD Gigabytes Billed]
+			VAR __Result =
+			    IF (
+			        NOT ISBLANK ( __ValueCurrentPeriod ) && NOT ISBLANK ( __ValuePreviousPeriod ),
+			        __ValueCurrentPeriod - __ValuePreviousPeriod
+			    )
+			RETURN
+			    __Result
+		displayFolder: Time intelligence\To-date growth\Gigabytes Billed
+		lineageTag: 8f1a9984-7092-4fa9-92b9-69dc2b20c118
+
+		annotation SQLBI_Template = TimeIntelligence
+
+		annotation SQLBI_TimeIntelligence = Weekly
+
+		annotation SQLBI_CalendarType = Weekly
+
+	measure 'QOQTD % Gigabytes Billed' =
+			
+			DIVIDE (
+			    [QOQTD Gigabytes Billed],
+			    [PQTD Gigabytes Billed]
+			)
+		formatString: 0.00%
+		displayFolder: Time intelligence\To-date growth\Gigabytes Billed
+		lineageTag: 52666106-8508-4433-b96a-98f2a1c07051
+
+		annotation SQLBI_Template = TimeIntelligence
+
+		annotation SQLBI_TimeIntelligence = Weekly
+
+		annotation SQLBI_CalendarType = Weekly
+
+	measure 'PWTD Gigabytes Billed' =
+			
+			IF (
+			    [_ShowValueForDates],
+			    VAR __PreviousFiscalYearWeek = MAX ( 'Date'[Fiscal Year Week Number] ) - 1
+			    VAR __LastDayOfWeekAvailable =
+			        CALCULATE (
+			            MAX ( 'Date'[Day of Week Number] ),
+			            -- Removes filters from filter-safe columns
+			            -- to get the last day with data selected in the report
+			            REMOVEFILTERS ( 'Date'[Day of Week Number], 'Date'[Day of Week] ),
+			            'Date'[DateWithTransactions] = TRUE
+			        )
+			    VAR __Result =
+			        CALCULATE (
+			            [Gigabytes Billed],
+			            ALLEXCEPT ( 'Date', 'Date'[Day of Week Number], 'Date'[Day of Week] ),
+			            'Date'[Fiscal Year Week Number] = __PreviousFiscalYearWeek,
+			            'Date'[Day of Week Number] <= __LastDayOfWeekAvailable,
+			            'Date'[DateWithTransactions] = TRUE
+			        )
+			    RETURN
+			        __Result
+			)
+		displayFolder: Time intelligence\To-date growth\Gigabytes Billed
+		lineageTag: 74f43c04-1650-4efb-bde5-5a368e2f1452
+
+		annotation SQLBI_Template = TimeIntelligence
+
+		annotation SQLBI_TimeIntelligence = Weekly
+
+		annotation SQLBI_CalendarType = Weekly
+
+	measure 'WOWTD Gigabytes Billed' =
+			
+			VAR __ValueCurrentPeriod = [WTD Gigabytes Billed]
+			VAR __ValuePreviousPeriod = [PWTD Gigabytes Billed]
+			VAR __Result =
+			    IF (
+			        NOT ISBLANK ( __ValueCurrentPeriod ) && NOT ISBLANK ( __ValuePreviousPeriod ),
+			        __ValueCurrentPeriod - __ValuePreviousPeriod
+			    )
+			RETURN
+			    __Result
+		displayFolder: Time intelligence\To-date growth\Gigabytes Billed
+		lineageTag: d2aa4a95-c304-43a8-87b4-8e68ef3e5ba0
+
+		annotation SQLBI_Template = TimeIntelligence
+
+		annotation SQLBI_TimeIntelligence = Weekly
+
+		annotation SQLBI_CalendarType = Weekly
+
+	measure 'WOWTD % Gigabytes Billed' =
+			
+			DIVIDE (
+			    [WOWTD Gigabytes Billed],
+			    [PWTD Gigabytes Billed]
+			)
+		formatString: 0.00%
+		displayFolder: Time intelligence\To-date growth\Gigabytes Billed
+		lineageTag: fcb5cd3f-5aa9-4cb9-a7c9-ffeb34457d9b
+
+		annotation SQLBI_Template = TimeIntelligence
+
+		annotation SQLBI_TimeIntelligence = Weekly
+
+		annotation SQLBI_CalendarType = Weekly
+
+	measure 'PYC Gigabytes Billed' =
+			
+			IF (
+			    [_ShowValueForDates] && HASONEVALUE ( 'Date'[Fiscal Year Number] ),
+			    VAR __PreviousFiscalYear = MAX ( 'Date'[Fiscal Year Number] ) - 1
+			    VAR __Result =
+			        CALCULATE (
+			            [Gigabytes Billed],
+			            ALLEXCEPT ( 'Date', 'Date'[Day of Week Number], 'Date'[Day of Week] ),
+			            'Date'[Fiscal Year Number] = __PreviousFiscalYear
+			        )
+			    RETURN
+			        __Result
+			)
+		displayFolder: Time intelligence\Growth over full period\Gigabytes Billed
+		lineageTag: 6d6c10c2-c63c-42c5-8dc6-3366d4fae894
+
+		annotation SQLBI_Template = TimeIntelligence
+
+		annotation SQLBI_TimeIntelligence = Weekly
+
+		annotation SQLBI_CalendarType = Weekly
+
+	measure 'YTDOPY Gigabytes Billed' =
+			
+			VAR __ValueCurrentPeriod = [YTD Gigabytes Billed]
+			VAR __ValuePreviousPeriod = [PYC Gigabytes Billed]
+			VAR __Result =
+			    IF (
+			        NOT ISBLANK ( __ValueCurrentPeriod ) && NOT ISBLANK ( __ValuePreviousPeriod ),
+			        __ValueCurrentPeriod - __ValuePreviousPeriod
+			    )
+			RETURN
+			    __Result
+		displayFolder: Time intelligence\Growth over full period\Gigabytes Billed
+		lineageTag: 28af08cc-5ac4-4ff6-8835-b628939e190a
+
+		annotation SQLBI_Template = TimeIntelligence
+
+		annotation SQLBI_TimeIntelligence = Weekly
+
+		annotation SQLBI_CalendarType = Weekly
+
+	measure 'YTDOPY % Gigabytes Billed' =
+			
+			DIVIDE (
+			    [YTDOPY Gigabytes Billed],
+			    [PYC Gigabytes Billed]
+			)
+		formatString: 0.00%
+		displayFolder: Time intelligence\Growth over full period\Gigabytes Billed
+		lineageTag: bfe472ee-8256-4d72-99f9-57bbb29bc1d3
+
+		annotation SQLBI_Template = TimeIntelligence
+
+		annotation SQLBI_TimeIntelligence = Weekly
+
+		annotation SQLBI_CalendarType = Weekly
+
+	measure 'PQC Gigabytes Billed' =
+			
+			IF (
+			    [_ShowValueForDates] && HASONEVALUE ( 'Date'[Fiscal Year Quarter Number] ),
+			    VAR __PreviousFiscalYearQuarter = MAX ( 'Date'[Fiscal Year Quarter Number] ) - 1
+			    VAR __Result =
+			        CALCULATE (
+			            [Gigabytes Billed],
+			            ALLEXCEPT ( 'Date', 'Date'[Day of Week Number], 'Date'[Day of Week] ),
+			            'Date'[Fiscal Year Quarter Number] = __PreviousFiscalYearQuarter
+			        )
+			    RETURN
+			        __Result
+			)
+		displayFolder: Time intelligence\Growth over full period\Gigabytes Billed
+		lineageTag: 439e193c-9b89-4a05-9f02-031910dd3e38
+
+		annotation SQLBI_Template = TimeIntelligence
+
+		annotation SQLBI_TimeIntelligence = Weekly
+
+		annotation SQLBI_CalendarType = Weekly
+
+	measure 'QTDOPQ Gigabytes Billed' =
+			
+			VAR __ValueCurrentPeriod = [QTD Gigabytes Billed]
+			VAR __ValuePreviousPeriod = [PQC Gigabytes Billed]
+			VAR __Result =
+			    IF (
+			        NOT ISBLANK ( __ValueCurrentPeriod ) && NOT ISBLANK ( __ValuePreviousPeriod ),
+			        __ValueCurrentPeriod - __ValuePreviousPeriod
+			    )
+			RETURN
+			    __Result
+		displayFolder: Time intelligence\Growth over full period\Gigabytes Billed
+		lineageTag: 609fb6bf-4b52-4b5f-8172-6ecc5f68cdb6
+
+		annotation SQLBI_Template = TimeIntelligence
+
+		annotation SQLBI_TimeIntelligence = Weekly
+
+		annotation SQLBI_CalendarType = Weekly
+
+	measure 'QTDOPQ % Gigabytes Billed' =
+			
+			DIVIDE (
+			    [QTDOPQ Gigabytes Billed],
+			    [PQC Gigabytes Billed]
+			)
+		formatString: 0.00%
+		displayFolder: Time intelligence\Growth over full period\Gigabytes Billed
+		lineageTag: 76dfa336-5cc5-4cfc-b5e6-e953d195e1e0
+
+		annotation SQLBI_Template = TimeIntelligence
+
+		annotation SQLBI_TimeIntelligence = Weekly
+
+		annotation SQLBI_CalendarType = Weekly
+
+	measure 'PWC Gigabytes Billed' =
+			
+			IF (
+			    [_ShowValueForDates] && HASONEVALUE ( 'Date'[Fiscal Year Week Number] ),
+			    VAR __PreviousFiscalYearWeek = MAX ( 'Date'[Fiscal Year Week Number] ) - 1
+			    VAR __Result =
+			        CALCULATE (
+			            [Gigabytes Billed],
+			            ALLEXCEPT ( 'Date', 'Date'[Day of Week Number], 'Date'[Day of Week] ),
+			            'Date'[Fiscal Year Week Number] = __PreviousFiscalYearWeek
+			        )
+			    RETURN
+			        __Result
+			)
+		displayFolder: Time intelligence\Growth over full period\Gigabytes Billed
+		lineageTag: ea88c675-502a-4997-8427-6d484949dfa2
+
+		annotation SQLBI_Template = TimeIntelligence
+
+		annotation SQLBI_TimeIntelligence = Weekly
+
+		annotation SQLBI_CalendarType = Weekly
+
+	measure 'WTDOPW Gigabytes Billed' =
+			
+			VAR __ValueCurrentPeriod = [WTD Gigabytes Billed]
+			VAR __ValuePreviousPeriod = [PWC Gigabytes Billed]
+			VAR __Result =
+			    IF (
+			        NOT ISBLANK ( __ValueCurrentPeriod ) && NOT ISBLANK ( __ValuePreviousPeriod ),
+			        __ValueCurrentPeriod - __ValuePreviousPeriod
+			    )
+			RETURN
+			    __Result
+		displayFolder: Time intelligence\Growth over full period\Gigabytes Billed
+		lineageTag: 253a9943-5c95-4e8f-9df4-cedaaf7aeb01
+
+		annotation SQLBI_Template = TimeIntelligence
+
+		annotation SQLBI_TimeIntelligence = Weekly
+
+		annotation SQLBI_CalendarType = Weekly
+
+	measure 'WTDOPW % Gigabytes Billed' =
+			
+			DIVIDE (
+			    [WTDOPW Gigabytes Billed],
+			    [PWC Gigabytes Billed]
+			)
+		formatString: 0.00%
+		displayFolder: Time intelligence\Growth over full period\Gigabytes Billed
+		lineageTag: b264bcfc-226b-4ef5-aac0-f8d93f332b50
+
+		annotation SQLBI_Template = TimeIntelligence
+
+		annotation SQLBI_TimeIntelligence = Weekly
+
+		annotation SQLBI_CalendarType = Weekly
+
+	measure 'MAT-364 Gigabytes Billed' =
+			
+			IF (
+			    [_ShowValueForDates],
+			    VAR __LastDayMAT = MAX ( 'Date'[Sequential Day Number] )
+			    VAR __FirstDayMAT = __LastDayMAT - 363
+			    VAR Result =
+			        CALCULATE (
+			            [Gigabytes Billed],
+			            ALLEXCEPT ( 'Date', 'Date'[Day of Week Number], 'Date'[Day of Week] ),
+			            'Date'[Sequential Day Number] >= __FirstDayMAT
+			                && 'Date'[Sequential Day Number] <= __LastDayMAT
+			        )
+			    RETURN
+			        Result
+			)
+		displayFolder: Time intelligence\Moving annual growth\Gigabytes Billed
+		lineageTag: 4e4f1610-6b52-4765-bee6-7bc5390dccb1
+
+		annotation SQLBI_Template = TimeIntelligence
+
+		annotation SQLBI_TimeIntelligence = Weekly
+
+		annotation SQLBI_CalendarType = Weekly
+
+	measure 'PYMAT-364 Gigabytes Billed' =
+			
+			IF (
+			    [_ShowValueForDates],
+			    VAR __LastDayAvailable = MAX ( 'Date'[Sequential Day Number] )
+			    VAR __LastDayMAT = __LastDayAvailable - 364
+			    VAR __FirstDayMAT = __LastDayMAT - 363
+			    VAR Result =
+			        CALCULATE (
+			            [Gigabytes Billed],
+			            ALLEXCEPT ( 'Date', 'Date'[Day of Week Number], 'Date'[Day of Week] ),
+			            'Date'[Sequential Day Number] >= __FirstDayMAT
+			                && 'Date'[Sequential Day Number] <= __LastDayMAT
+			        )
+			    RETURN
+			        Result
+			)
+		displayFolder: Time intelligence\Moving annual growth\Gigabytes Billed
+		lineageTag: e7d5a36f-6dde-445f-9f6f-e12f5c8eddca
+
+		annotation SQLBI_Template = TimeIntelligence
+
+		annotation SQLBI_TimeIntelligence = Weekly
+
+		annotation SQLBI_CalendarType = Weekly
+
+	measure 'MATG-364 Gigabytes Billed' =
+			
+			VAR __ValueCurrentPeriod = [MAT-364 Gigabytes Billed]
+			VAR __ValuePreviousPeriod = [PYMAT-364 Gigabytes Billed]
+			VAR __Result =
+			    IF (
+			        NOT ISBLANK ( __ValueCurrentPeriod ) && NOT ISBLANK ( __ValuePreviousPeriod ),
+			        __ValueCurrentPeriod - __ValuePreviousPeriod
+			    )
+			RETURN
+			    __Result
+		displayFolder: Time intelligence\Growth over full period\Gigabytes Billed
+		lineageTag: b23a8828-673a-4ba5-82a3-51030e44c7a0
+
+		annotation SQLBI_Template = TimeIntelligence
+
+		annotation SQLBI_TimeIntelligence = Weekly
+
+		annotation SQLBI_CalendarType = Weekly
+
+	measure 'MATG-364 % Gigabytes Billed' =
+			
+			DIVIDE (
+			    [MATG-364 Gigabytes Billed],
+			    [PYMAT-364 Gigabytes Billed]
+			)
+		formatString: 0.00%
+		displayFolder: Time intelligence\To-date growth\Gigabytes Billed
+		lineageTag: 18538bf2-89ea-4bfe-91ff-81a15be9fd44
+
+		annotation SQLBI_Template = TimeIntelligence
+
+		annotation SQLBI_TimeIntelligence = Weekly
+
+		annotation SQLBI_CalendarType = Weekly
+
+	column gb_processed
+		dataType: double
+		lineageTag: ddaacfb9-8b56-436e-b4bb-30c723fbe3ec
+		summarizeBy: none
+		sourceColumn: gb_processed
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column gb_billed
+		dataType: double
+		lineageTag: 9b943c08-8e86-4ea4-9617-8ec625be5614
+		summarizeBy: none
+		sourceColumn: gb_billed
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column creation_time
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 89870128-2621-4900-88b4-e7702292679c
+		summarizeBy: none
+		sourceColumn: creation_time
+
+		annotation SummarizationSetBy = Automatic
+
+	column project_id
+		dataType: string
+		lineageTag: f1f9f1c8-9762-436e-abf7-4117f2ab8b32
+		summarizeBy: none
+		sourceColumn: project_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column user_email
+		dataType: string
+		lineageTag: 9347de19-9282-47f2-9ddc-99c22f5bee36
+		summarizeBy: none
+		sourceColumn: user_email
+
+		annotation SummarizationSetBy = Automatic
+
+	column job_id
+		dataType: string
+		lineageTag: ce5fc107-2931-4a9a-9893-ed142af663e3
+		summarizeBy: none
+		sourceColumn: job_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column job_type
+		dataType: string
+		lineageTag: ef7fb15a-c9d5-4e94-b944-b5b61a4d96f3
+		summarizeBy: none
+		sourceColumn: job_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column statement_type
+		dataType: string
+		lineageTag: daf6cdf8-285c-4552-ad2a-4940c3e13f05
+		summarizeBy: none
+		sourceColumn: statement_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column priority
+		dataType: string
+		lineageTag: c3015340-ca1f-4776-a30b-6abccb6e9a45
+		summarizeBy: none
+		sourceColumn: priority
+
+		annotation SummarizationSetBy = Automatic
+
+	column start_time
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: d9856888-f50f-49ce-8b4e-2415be6e6f7e
+		summarizeBy: none
+		sourceColumn: start_time
+
+		annotation SummarizationSetBy = Automatic
+
+	column end_time
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: fac914be-65af-48f2-b12a-2fbd1b702520
+		summarizeBy: none
+		sourceColumn: end_time
+
+		annotation SummarizationSetBy = Automatic
+
+	column query
+		dataType: string
+		lineageTag: 9eb0cab5-2d23-43d4-aed0-9265f7efd4c6
+		summarizeBy: none
+		sourceColumn: query
+
+		annotation SummarizationSetBy = Automatic
+
+	column state
+		dataType: string
+		lineageTag: c10e28a6-6078-4bf8-996f-de06f5ced7c8
+		summarizeBy: none
+		sourceColumn: state
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_bytes_processed
+		dataType: int64
+		formatString: 0
+		lineageTag: 0c2fae34-e5ef-4614-bdfe-379251cca0b4
+		summarizeBy: none
+		sourceColumn: total_bytes_processed
+
+		annotation SummarizationSetBy = User
+
+	column total_bytes_billed
+		dataType: int64
+		formatString: 0
+		lineageTag: e9af86a9-6d77-4aeb-9fe9-ba1696d6d715
+		summarizeBy: none
+		sourceColumn: total_bytes_billed
+
+		annotation SummarizationSetBy = User
+
+	column 'Ano, Mês (Criação)' = FORMAT('BigQuery Cost'[creation_time], "YYYY-MM")
+		dataType: string
+		lineageTag: bad5e08c-0076-4e9f-bd8c-04e2ae226c14
+		summarizeBy: none
+		isDataTypeInferred
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Data (Criação)' = FORMAT('BigQuery Cost'[creation_time], "YYYY-MM-DD")
+		dataType: string
+		lineageTag: 2f3331a1-bab3-4b86-9731-d98a5d82a4be
+		summarizeBy: none
+		isDataTypeInferred
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'BigQuery Cost' = m
+		mode: import
+		queryGroup: 'BIGQUERY COST'
+		source =
+				let
+				    Source = Value.NativeQuery(GoogleBigQuery.Database(){[Name="incentive-me-2019"]}[Data], "SELECT #(lf)jobs.total_bytes_processed/1024/1024/1024 AS gb_processed#(lf), jobs.total_bytes_billed/1024/1024/1024 AS job_cost_usd#(lf), *#(lf)FROM `incentive-me-2019`.`region-us`.INFORMATION_SCHEMA.JOBS_BY_PROJECT jobs#(lf)WHERE true#(lf)  # AND jobs.creation_time >= '2020-09-01' AND jobs.creation_time < '2020-10-01'#(lf)  # AND job_type = 'QUERY'     # remove this condition for all job types#(lf)  # AND jobs.total_bytes_billed/1024/1024/1024/1024 * 5 > 1   # jobs bigger than 1 USD#(lf)ORDER BY jobs.total_bytes_billed DESC", null, [EnableFolding=true]),
+				    #"Renamed Columns" = Table.RenameColumns(Source,{{"job_cost_usd", "gb_billed"}}),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Renamed Columns",{"gb_processed", "gb_billed", "creation_time", "project_id", "user_email", "job_id", "job_type", "statement_type", "priority", "start_time", "end_time", "query", "state", "total_bytes_processed", "total_bytes_billed"})
+				in
+				    #"Removed Other Columns"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

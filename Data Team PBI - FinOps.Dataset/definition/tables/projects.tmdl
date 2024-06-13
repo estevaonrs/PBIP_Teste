@@ -1,0 +1,49 @@
+table projects
+	lineageTag: 510a2b7a-1db9-4422-bb57-e8b03f25bd33
+
+	column id
+		dataType: string
+		isKey
+		lineageTag: 952618d2-9fca-4d9e-89f4-9d0af213d68e
+		summarizeBy: none
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column number
+		dataType: string
+		lineageTag: 3254daba-1e9e-4cbf-a5d9-4ec301472275
+		summarizeBy: none
+		sourceColumn: number
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		lineageTag: 27a2b091-59bc-4295-b776-caf7bda54fd9
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column ancestry_numbers
+		dataType: string
+		lineageTag: 77ea21f2-a4fe-4238-b1c8-43bc9872ad69
+		summarizeBy: none
+		sourceColumn: ancestry_numbers
+
+		annotation SummarizationSetBy = Automatic
+
+	partition projects = m
+		mode: import
+		queryGroup: 'GCP BILLING'
+		source =
+				let
+				    Source = Value.NativeQuery(GoogleBigQuery.Database(){[Name="incentive-me-2019"]}[Data], "SELECT * FROM `incentive-me-2019.tmp.projects`#(lf)where id is not null", null, [EnableFolding=true])
+				in
+				    Source
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

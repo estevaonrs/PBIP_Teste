@@ -1,0 +1,346 @@
+table Date
+	lineageTag: 8a9182ed-599c-492d-91dc-d6cbc23fb64d
+	dataCategory: Time
+
+	measure _ShowValueForDates =
+			
+			VAR __LastDateWithData =
+			    CALCULATE (
+			        TODAY(),
+			        REMOVEFILTERS ()
+			    )
+			VAR __FirstDateVisible =
+			    MIN ( 'Date'[Date] )
+			VAR __Result =
+			    __FirstDateVisible <= __LastDateWithData
+			RETURN
+			    __Result
+		isHidden
+		displayFolder: Hidden Time Intelligence
+		lineageTag: d851c5b3-cb63-4c46-948a-91bd17c3e1b4
+
+		annotation SQLBI_Template = TimeIntelligence
+
+		annotation SQLBI_TimeIntelligence = Weekly
+
+		annotation SQLBI_CalendarType = Weekly
+
+	column Date
+		dataType: dateTime
+		isKey
+		formatString: yyyy-mm-dd
+		lineageTag: 1055b64a-40d9-4ac1-8b72-299b243aabba
+		dataCategory: PaddedDateTableDates
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: DateAutoTemplate[Date]
+
+		annotation SQLBI_AttributeTypes = Date, FiscalDate
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column 'Sequential Day Number'
+		dataType: int64
+		isHidden
+		lineageTag: 123a4659-23db-4e97-be1b-849fbe36439a
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: DateAutoTemplate[Sequential Day Number]
+
+		annotation SQLBI_AttributeTypes = ManufacturingDate
+
+	column 'Fiscal Year Number'
+		dataType: int64
+		isHidden
+		lineageTag: 85cd2941-4798-4781-95e2-7118cc9e8482
+		dataCategory: Years
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: DateAutoTemplate[Fiscal Year Number]
+
+		annotation SQLBI_AttributeTypes = FiscalYears
+
+	column 'Fiscal Year'
+		dataType: string
+		lineageTag: fb305e87-84d9-46e9-853d-aa082549a0dc
+		dataCategory: Years
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: DateAutoTemplate[Fiscal Year]
+		sortByColumn: 'Fiscal Year Number'
+
+	column 'Fiscal Quarter Number'
+		dataType: double
+		isHidden
+		lineageTag: e978dde6-1448-4821-a99e-9e5535065006
+		dataCategory: Quarters
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: DateAutoTemplate[Fiscal Quarter Number]
+
+		annotation SQLBI_AttributeTypes = FiscalQuarterOfYear
+
+	column 'Fiscal Quarter'
+		dataType: string
+		lineageTag: af15d5e6-3b2e-400c-942e-bdb3ec9ee26b
+		dataCategory: Quarters
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: DateAutoTemplate[Fiscal Quarter]
+		sortByColumn: 'Fiscal Quarter Number'
+
+	column 'Fiscal Year Quarter Number'
+		dataType: double
+		isHidden
+		lineageTag: 8f82e9e9-3c0a-4301-9789-1fc59fe10e64
+		dataCategory: Quarters
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: DateAutoTemplate[Fiscal Year Quarter Number]
+
+		annotation SQLBI_AttributeTypes = FiscalQuarters
+
+	column 'Fiscal Year Quarter'
+		dataType: string
+		lineageTag: 91473295-7c86-4ccd-83ef-be0207318a4f
+		dataCategory: Quarters
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: DateAutoTemplate[Fiscal Year Quarter]
+		sortByColumn: 'Fiscal Year Quarter Number'
+
+	column 'Fiscal Month Number'
+		dataType: double
+		isHidden
+		lineageTag: 1ec194d9-21db-4cd1-b641-9e3894fa5beb
+		dataCategory: MonthOfYear
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: DateAutoTemplate[Fiscal Month Number]
+
+		annotation SQLBI_AttributeTypes = FiscalMonthOfYear
+
+	column 'Fiscal Month'
+		dataType: string
+		lineageTag: ea0436d7-422b-4d27-907d-88a12506cff4
+		dataCategory: MonthOfYear
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: DateAutoTemplate[Fiscal Month]
+		sortByColumn: 'Fiscal Month Number'
+
+	column 'Fiscal Year Month Number'
+		dataType: double
+		isHidden
+		lineageTag: 69a1e7ac-d87c-4356-aada-19afd865d172
+		dataCategory: Months
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: DateAutoTemplate[Fiscal Year Month Number]
+
+		annotation SQLBI_AttributeTypes = FiscalMonths
+
+	column 'Fiscal Year Month'
+		dataType: string
+		lineageTag: f54524c2-50ea-468c-8fa5-59ce3e3f872b
+		dataCategory: Months
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: DateAutoTemplate[Fiscal Year Month]
+		sortByColumn: 'Fiscal Year Month Number'
+
+	column 'Fiscal Week Number'
+		dataType: int64
+		isHidden
+		lineageTag: 5cbd69a0-9f9d-45d4-872b-33418d71b948
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: DateAutoTemplate[Fiscal Week Number]
+
+		annotation SQLBI_AttributeTypes = FiscalWeekOfYear
+
+	column 'Fiscal Week'
+		dataType: string
+		lineageTag: 79b3bfb8-4161-461e-9cc6-42565da4ec44
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: DateAutoTemplate[Fiscal Week]
+		sortByColumn: 'Fiscal Week Number'
+
+	column 'Fiscal Year Week Number'
+		dataType: int64
+		isHidden
+		lineageTag: 10fcc0d9-2fa0-46f6-b7f6-4faa58ee927f
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: DateAutoTemplate[Fiscal Year Week Number]
+
+		annotation SQLBI_AttributeTypes = FiscalWeeks
+
+	column 'Fiscal Year Week'
+		dataType: string
+		lineageTag: 9d781701-8d25-482c-9aea-aef64862a2f3
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: DateAutoTemplate[Fiscal Year Week]
+		sortByColumn: 'Fiscal Year Week Number'
+
+	column 'Day of Week Number'
+		dataType: int64
+		isHidden
+		lineageTag: dbd1b6a3-3f03-435a-9f1a-b32c483700fe
+		dataCategory: DayOfWeek
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: DateAutoTemplate[Day of Week Number]
+
+		annotation SQLBI_AttributeTypes = DayOfWeek
+
+		annotation SQLBI_FilterSafe = True
+
+	column 'Day of Week'
+		dataType: string
+		lineageTag: 866bd5da-e908-40a8-977a-83579c2e150d
+		dataCategory: DayOfWeek
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: DateAutoTemplate[Day of Week]
+		sortByColumn: 'Day of Week Number'
+
+		annotation SQLBI_FilterSafe = True
+
+	column 'Day of Fiscal Month Number'
+		dataType: int64
+		isHidden
+		lineageTag: 8136852d-c8e3-417e-aa1b-f78d1a516b7d
+		dataCategory: DayOfMonth
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: DateAutoTemplate[Day of Fiscal Month Number]
+
+		annotation SQLBI_AttributeTypes = FiscalDayOfMonth
+
+	column 'Day of Fiscal Quarter Number'
+		dataType: int64
+		isHidden
+		lineageTag: 95834d9b-8b3e-4c7e-836d-0573bf770312
+		dataCategory: DayOfQuarter
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: DateAutoTemplate[Day of Fiscal Quarter Number]
+
+		annotation SQLBI_AttributeTypes = FiscalDayOfQuarter
+
+	column 'Day of Fiscal Year Number'
+		dataType: int64
+		isHidden
+		lineageTag: 056e1395-cd89-4fb1-9bcc-1c87d0126cad
+		dataCategory: DayOfYear
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: DateAutoTemplate[Day of Fiscal Year Number]
+
+		annotation SQLBI_AttributeTypes = FiscalDayOfYear
+
+	column DateWithTransactions
+		dataType: boolean
+		isHidden
+		lineageTag: 415b7194-7f0a-4ddb-b179-b7fd82f46915
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: DateAutoTemplate[DateWithTransactions]
+
+		annotation SQLBI_AttributeTypes = DateDuration
+
+	hierarchy Year-Month-Week
+		lineageTag: 47ecee53-9757-41a1-8405-88cc31ccd3d4
+
+		level Year
+			lineageTag: e7aeb627-0b75-4a1a-ab36-bc2170b84984
+			column: 'Fiscal Year'
+
+		level Month
+			lineageTag: c036fc50-b4d4-4079-a8f1-edff6c453b61
+			column: 'Fiscal Year Month'
+
+		level Week
+			lineageTag: 4674c8c7-3f82-4a27-9ef5-a1fc40fe608b
+			column: 'Fiscal Year Week'
+
+	hierarchy Year-Quarter-Month-Week
+		lineageTag: 61a73612-8023-4f9a-b499-94a9f2cb7701
+
+		level Year
+			lineageTag: e162297d-6bd7-44e2-bea2-9770fdb47798
+			column: 'Fiscal Year'
+
+		level Quarter
+			lineageTag: 173ca6b8-1442-4401-94d1-e73baaa2a720
+			column: 'Fiscal Year Quarter'
+
+		level Month
+			lineageTag: e86e7c11-43eb-4e8d-a3e1-69704d89cf3a
+			column: 'Fiscal Year Month'
+
+		level Week
+			lineageTag: da83d3e6-a6a7-4673-9f20-9b883c61a36b
+			column: 'Fiscal Year Week'
+
+	hierarchy Year-Quarter-Week
+		lineageTag: 22649dc7-d2e0-4130-a332-b2e2dd0143fc
+
+		level Year
+			lineageTag: d8ac7a54-5367-47f0-8e2b-e4685ddf973d
+			column: 'Fiscal Year'
+
+		level Quarter
+			lineageTag: 1c2f9c6d-9b7d-4777-8440-0c2746cda48f
+			column: 'Fiscal Year Quarter'
+
+		level Week
+			lineageTag: b487e4f5-c016-42d3-abda-7c9651ffa426
+			column: 'Fiscal Year Week'
+
+	hierarchy Year-Week
+		lineageTag: 400ae8c7-33cf-406c-8f6a-bc1425fc3e2a
+
+		level Year
+			lineageTag: b9f2ac94-6ed2-495c-953f-a10ac0f7b671
+			column: 'Fiscal Year'
+
+		level Week
+			lineageTag: 50019eaf-94ad-4f9d-9066-87b11c8139ba
+			column: 'Fiscal Year Week'
+
+	partition Date = calculated
+		mode: import
+		source = DateAutoTemplate
+
+	annotation SQLBI_Template = Dates
+
+	annotation SQLBI_TemplateTable = Date
+
+	annotation SQLBI_CalendarType = Weekly
+

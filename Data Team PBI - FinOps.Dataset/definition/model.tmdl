@@ -1,0 +1,75 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: pt-BR
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+extendedProperty SQLBI_BRAVO_ManageDatesConfiguration =
+		{
+		  "templateUri": "file:///C:/Users/estev/AppData/Local/Bravo/.temp/ManageDates/Templates/Config-07.template.json",
+		  "isCurrent": false,
+		  "isCustom": false,
+		  "name": "Config-07",
+		  "description": "Weekly calendar",
+		  "isoTranslation": "en-US",
+		  "autoScan": 0,
+		  "onlyTablesColumns": [],
+		  "exceptTablesColumns": [],
+		  "isoCountry": "US",
+		  "firstYear": 2020,
+		  "lastYear": 2026,
+		  "autoNaming": 1,
+		  "targetMeasures": [],
+		  "defaults": {
+		    "firstFiscalMonth": 1,
+		    "firstDayOfWeek": 1,
+		    "workingDayType": "Working day",
+		    "nonWorkingDayType": "Non-working day",
+		    "typeStartFiscalYear": 1,
+		    "quarterWeekType": 445,
+		    "weeklyType": 0
+		  },
+		  "dateAvailable": true,
+		  "dateEnabled": true,
+		  "dateTableName": "Date",
+		  "dateTableValidation": 2,
+		  "dateReferenceTableName": "DateAutoTemplate",
+		  "dateReferenceTableValidation": 2,
+		  "holidaysAvailable": true,
+		  "holidaysEnabled": false,
+		  "holidaysTableName": "Holidays",
+		  "holidaysTableValidation": 0,
+		  "holidaysDefinitionTableName": "HolidaysDefinition",
+		  "holidaysDefinitionTableValidation": 0,
+		  "timeIntelligenceAvailable": true,
+		  "timeIntelligenceEnabled": true
+		}
+
+queryGroup 'GCP BILLING'
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup 'BIGQUERY COST'
+
+	annotation PBI_QueryGroupOrder = 1
+
+annotation PBI_QueryOrder = ["BigQuery Cost","services","skus","GCP Billing","projects","projects_ancestors","projects_labels"]
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBIDesktopVersion = 2.126.1261.0 (24.02)
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table 'BigQuery Cost'
+ref table services
+ref table skus
+ref table 'GCP Billing'
+ref table projects
+ref table projects_ancestors
+ref table projects_labels
+ref table DateAutoTemplate
+ref table Date
+

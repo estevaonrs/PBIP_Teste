@@ -1,0 +1,562 @@
+table DateAutoTemplate
+	isHidden
+	lineageTag: a7c4dba0-9ea5-4d95-8a89-e96cd0a2d5af
+	dataCategory: Time
+
+	column Date
+		dataType: dateTime
+		isHidden
+		isKey
+		formatString: m/d/yyyy
+		lineageTag: 9c24fa5b-9de9-462c-a385-3aaf5191ece0
+		dataCategory: PaddedDateTableDates
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [Date]
+
+		annotation SQLBI_AttributeTypes = Date, FiscalDate
+
+	column 'Sequential Day Number'
+		dataType: int64
+		isHidden
+		lineageTag: 01b4d4af-40b0-4d5b-8a89-d9ce1f32409b
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [Sequential Day Number]
+
+		annotation SQLBI_AttributeTypes = ManufacturingDate
+
+	column 'Fiscal Year Number'
+		dataType: int64
+		isHidden
+		lineageTag: b0530a68-f489-4d17-b5f5-ef5dc7dc10d3
+		dataCategory: Years
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [Fiscal Year Number]
+
+		annotation SQLBI_AttributeTypes = FiscalYears
+
+	column 'Fiscal Year'
+		dataType: string
+		isHidden
+		lineageTag: af85e5e3-91b0-44eb-90a5-835b9c374243
+		dataCategory: Years
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [Fiscal Year]
+		sortByColumn: 'Fiscal Year Number'
+
+	column 'Fiscal Quarter Number'
+		dataType: double
+		isHidden
+		lineageTag: 97940c18-487b-459f-8369-ed6f5382bd31
+		dataCategory: Quarters
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [Fiscal Quarter Number]
+
+		annotation SQLBI_AttributeTypes = FiscalQuarterOfYear
+
+	column 'Fiscal Quarter'
+		dataType: string
+		isHidden
+		lineageTag: 1c01c0a4-59e9-4bed-91ec-f6dbf97dd809
+		dataCategory: Quarters
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [Fiscal Quarter]
+		sortByColumn: 'Fiscal Quarter Number'
+
+	column 'Fiscal Year Quarter Number'
+		dataType: double
+		isHidden
+		lineageTag: d6761a67-a3a8-44bd-a01c-5f14e3c7e48b
+		dataCategory: Quarters
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [Fiscal Year Quarter Number]
+
+		annotation SQLBI_AttributeTypes = FiscalQuarters
+
+	column 'Fiscal Year Quarter'
+		dataType: string
+		isHidden
+		lineageTag: bd88f51f-cae2-450f-a73e-dc23666d5e70
+		dataCategory: Quarters
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [Fiscal Year Quarter]
+		sortByColumn: 'Fiscal Year Quarter Number'
+
+	column 'Fiscal Month Number'
+		dataType: double
+		isHidden
+		lineageTag: 35d80943-dbd9-407e-a314-62e47a73b4b7
+		dataCategory: MonthOfYear
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [Fiscal Month Number]
+
+		annotation SQLBI_AttributeTypes = FiscalMonthOfYear
+
+	column 'Fiscal Month'
+		dataType: string
+		isHidden
+		lineageTag: a90d84dd-f700-4834-9a86-42265048a503
+		dataCategory: MonthOfYear
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [Fiscal Month]
+		sortByColumn: 'Fiscal Month Number'
+
+	column 'Fiscal Year Month Number'
+		dataType: double
+		isHidden
+		lineageTag: 88ed276f-6cdd-430b-b441-6907bfaa12cd
+		dataCategory: Months
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [Fiscal Year Month Number]
+
+		annotation SQLBI_AttributeTypes = FiscalMonths
+
+	column 'Fiscal Year Month'
+		dataType: string
+		isHidden
+		lineageTag: 24f66595-ff5e-47fc-a762-61688ae16641
+		dataCategory: Months
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [Fiscal Year Month]
+		sortByColumn: 'Fiscal Year Month Number'
+
+	column 'Fiscal Week Number'
+		dataType: int64
+		isHidden
+		lineageTag: 4dade282-678c-4b80-8630-d0817000d2a2
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [Fiscal Week Number]
+
+		annotation SQLBI_AttributeTypes = FiscalWeekOfYear
+
+	column 'Fiscal Week'
+		dataType: string
+		isHidden
+		lineageTag: b515b5b0-d968-44e9-835e-577efca04ef2
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [Fiscal Week]
+		sortByColumn: 'Fiscal Week Number'
+
+	column 'Fiscal Year Week Number'
+		dataType: int64
+		isHidden
+		lineageTag: 5e8cff23-7326-477b-b5d6-cf38139ac2de
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [Fiscal Year Week Number]
+
+		annotation SQLBI_AttributeTypes = FiscalWeeks
+
+	column 'Fiscal Year Week'
+		dataType: string
+		isHidden
+		lineageTag: b4f41b0a-2d31-4739-a9dd-38a01fdc7c3c
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [Fiscal Year Week]
+		sortByColumn: 'Fiscal Year Week Number'
+
+	column 'Day of Week Number'
+		dataType: int64
+		isHidden
+		lineageTag: b25e2eef-b61c-4dfa-9e71-5a4f3a8225e3
+		dataCategory: DayOfWeek
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [Day of Week Number]
+
+		annotation SQLBI_AttributeTypes = DayOfWeek
+
+		annotation SQLBI_FilterSafe = True
+
+	column 'Day of Week'
+		dataType: string
+		isHidden
+		lineageTag: 7c824997-6abc-4b7d-ba77-b1552a3ab0b2
+		dataCategory: DayOfWeek
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [Day of Week]
+		sortByColumn: 'Day of Week Number'
+
+		annotation SQLBI_FilterSafe = True
+
+	column 'Day of Fiscal Month Number'
+		dataType: int64
+		isHidden
+		lineageTag: 3e40a09c-a9b7-47dc-9fd8-8dd13f0e44b4
+		dataCategory: DayOfMonth
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [Day of Fiscal Month Number]
+
+		annotation SQLBI_AttributeTypes = FiscalDayOfMonth
+
+	column 'Day of Fiscal Quarter Number'
+		dataType: int64
+		isHidden
+		lineageTag: 0c8dfa1d-7500-4036-a4e7-b4a26660b74b
+		dataCategory: DayOfQuarter
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [Day of Fiscal Quarter Number]
+
+		annotation SQLBI_AttributeTypes = FiscalDayOfQuarter
+
+	column 'Day of Fiscal Year Number'
+		dataType: int64
+		isHidden
+		lineageTag: 700c588c-09cf-49f1-900e-8dbae89cef4c
+		dataCategory: DayOfYear
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [Day of Fiscal Year Number]
+
+		annotation SQLBI_AttributeTypes = FiscalDayOfYear
+
+	column DateWithTransactions
+		dataType: boolean
+		isHidden
+		lineageTag: b2d5f399-cff9-45c7-aab6-19cf12fb8b22
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [DateWithTransactions]
+
+		annotation SQLBI_AttributeTypes = DateDuration
+
+	hierarchy Year-Month-Week
+		isHidden
+		lineageTag: da8157b6-d02c-4080-952a-0821d694e2d9
+
+		level Year
+			lineageTag: 02f183d0-7943-4344-896f-4e37b6edfdfb
+			column: 'Fiscal Year'
+
+		level Month
+			lineageTag: 91cee8f0-6102-4c64-85e8-50e64669dedc
+			column: 'Fiscal Year Month'
+
+		level Week
+			lineageTag: c39cc44c-6be4-46f6-8403-5e0d48174251
+			column: 'Fiscal Year Week'
+
+	hierarchy Year-Quarter-Month-Week
+		isHidden
+		lineageTag: 2e4abaeb-0ccd-481f-9c3a-29106ff74c72
+
+		level Year
+			lineageTag: 6e683d84-d20e-4379-ade8-b82a9d57b54c
+			column: 'Fiscal Year'
+
+		level Quarter
+			lineageTag: 4ba39d92-4eac-4402-8626-1ee3da099d2c
+			column: 'Fiscal Year Quarter'
+
+		level Month
+			lineageTag: c92d79d9-ca56-4ecf-9279-84a581dcbbd1
+			column: 'Fiscal Year Month'
+
+		level Week
+			lineageTag: 651eb3c9-9b42-44d2-ab8d-90be958996f7
+			column: 'Fiscal Year Week'
+
+	hierarchy Year-Quarter-Week
+		isHidden
+		lineageTag: 0ae27b99-5c4c-4299-803c-4f06c82d5f9e
+
+		level Year
+			lineageTag: 24b00bca-cbd8-4cce-8748-9e5450d2e8a1
+			column: 'Fiscal Year'
+
+		level Quarter
+			lineageTag: 5f82a405-2ff9-4db0-b5af-f6246bb804b0
+			column: 'Fiscal Year Quarter'
+
+		level Week
+			lineageTag: b0684f73-356c-44ad-b171-55f8a28757f8
+			column: 'Fiscal Year Week'
+
+	hierarchy Year-Week
+		isHidden
+		lineageTag: d6fbad64-9483-4400-bb3b-1ce2a5129208
+
+		level Year
+			lineageTag: 0ca90a0d-7d3f-439e-8b6f-0e650987e5bf
+			column: 'Fiscal Year'
+
+		level Week
+			lineageTag: 70fc0961-a9f5-4940-b358-cdf237e44288
+			column: 'Fiscal Year Week'
+
+	partition DateAutoTemplate = calculated
+		mode: import
+		source = ```
+				
+				--  
+				--     Configuration
+				--  
+				-- First month of the fiscal year
+				VAR __FirstFiscalMonth = 1
+				-- Increase range of fiscal years before/after boundaries defined
+				VAR __OffsetYears = 1
+				-- Fiscal year as Calendar Year of :
+				-- 0 - First day of fiscal year
+				-- 1 - Last day of fiscal year
+				VAR __TypeStartFiscalYear = 1
+				-- Supports only Nearest or Last
+				-- Last:    for last weekday of the month at fiscal year end
+				-- Nearest: for last weekday nearest the end of month
+				-- Reference for Last/Nearest definition: https://en.wikipedia.org/wiki/4%E2%80%934%E2%80%935_calendar)
+				VAR __WeeklyType = "Last"
+				-- 0 = Sunday, 1 = Monday, ...
+				VAR __FirstDayOfWeek = 1
+				-- Supports only 445, 454, and 544
+				VAR __QuarterWeekType = "445"
+				----------------------------------------
+				VAR __FirstTransactionDate = TODAY()
+				VAR __FirstYearTransaction = 
+				    YEAR ( __FirstTransactionDate )
+				        + 1 * ( MONTH ( __FirstTransactionDate ) >= __FirstFiscalMonth
+				                    && __FirstFiscalMonth > 1 )
+				VAR __FirstYear = MAX ( 2020, MIN ( 2020,  __FirstYearTransaction  ) )
+				VAR __LastTransactionDate = TODAY()
+				VAR __LastYearTransaction = 
+				    YEAR ( __LastTransactionDate )
+				        + 1 * ( MONTH ( __LastTransactionDate ) >= __FirstFiscalMonth
+				                    && __FirstFiscalMonth > 1 )
+				VAR __LastYear = 2026
+				VAR __OffsetFiscalYear = IF ( __FirstFiscalMonth > 1, __OffsetYears, 0 )
+				VAR __WeekDayCalculationType = IF ( __FirstDayOfWeek = 0, 7, __FirstDayOfWeek ) + 10
+				VAR __WeeksInP1 = 
+				    SWITCH (
+				        __QuarterWeekType,
+				        "445", 4,
+				        "454", 4,
+				        "544", 5,
+				        ERROR ( "__QuarterWeekType only supports 445, 454, and 544" )
+				    )
+				VAR __WeeksInP2 = 
+				    SWITCH (
+				        __QuarterWeekType,
+				        "445", 4,
+				        "454", 5,
+				        "544", 4,
+				        ERROR ( "__QuarterWeekType only supports 445, 454, and 544" )
+				    )
+				VAR __IsStandardLocale = IF ( FORMAT( DATE( 2000, 1, 1 ), "oooo" ) = "oooo", TRUE, FALSE )
+				VAR __MonthFormatString = IF( __IsStandardLocale, "mmm", "ooo" )
+				-- Do not change this
+				VAR __FirstSundayReference = DATE ( 1900, 12, 30 )
+				VAR __FirstWeekReference = __FirstSundayReference + __FirstDayOfWeek
+				VAR __DayFormatString = IF( __IsStandardLocale, "ddd", "aaa" )
+				VAR __GenerateFiscalYears = 
+				    SELECTCOLUMNS (
+				        GENERATESERIES ( __FirstYear - __OffsetFiscalYear, __LastYear + __OffsetFiscalYear, 1 ),
+				        "@YearNumber", ''[Value]
+				    )
+				VAR __Calendar = 
+				    GENERATE (
+				        __GenerateFiscalYears,
+				        VAR _StartFiscalYearNumber = [@YearNumber] - ( __OffsetFiscalYear * __TypeStartFiscalYear )
+				        VAR _FirstDayCurrentYear = DATE ( _StartFiscalYearNumber, __FirstFiscalMonth, 1 )
+				        VAR _FirstDayNextYear = DATE ( _StartFiscalYearNumber + 1, __FirstFiscalMonth, 1 )
+				        VAR _DayOfWeekNumberCurrentYear = WEEKDAY ( _FirstDayCurrentYear, __WeekDayCalculationType )
+				        VAR _OffsetStartCurrentFiscalYear =
+				            SWITCH (
+				                __WeeklyType,
+				                "Last", 1 - _DayOfWeekNumberCurrentYear,
+				                "Nearest", IF (
+				                    _DayOfWeekNumberCurrentYear >= 5,
+				                    8 - _DayOfWeekNumberCurrentYear,
+				                    1 - _DayOfWeekNumberCurrentYear
+				                ),
+				                ERROR ( "Unknown WeeklyType definition" )
+				            )
+				        VAR _DayOfWeekNumberNextYear = WEEKDAY ( _FirstDayNextYear, __WeekDayCalculationType )
+				        VAR _OffsetStartNextFiscalYear =
+				            SWITCH (
+				                __WeeklyType,
+				                "Last", - _DayOfWeekNumberNextYear,
+				               "Nearest", IF (
+				                    _DayOfWeekNumberNextYear >= 5,
+				                    7 - _DayOfWeekNumberNextYear,
+				                    - _DayOfWeekNumberNextYear
+				                ),
+				                ERROR ( "Unknown WeeklyType definition" )
+				            )
+				        VAR _FirstDayOfFiscalYear = _FirstDayCurrentYear + _OffsetStartCurrentFiscalYear
+				        VAR _LastDayOfFiscalYear = _FirstDayNextYear + _OffsetStartNextFiscalYear
+				        RETURN
+				            GENERATE (
+				                ROW ( "@StartOfYear", _FirstDayOfFiscalYear, "@EndOfYear", _LastDayOfFiscalYear ),
+				                CALENDAR ( _FirstDayOfFiscalYear, _LastDayOfFiscalYear )
+				            )
+				    )
+				VAR __Step3 = 
+				    GENERATE (
+				        __Calendar,
+				        VAR __LastTransactionDate = TODAY()
+				        VAR __FiscalYearNumber = [@YearNumber]
+				        VAR __FiscalYear = FORMAT ( __FiscalYearNumber, "\F\Y 0000" )
+				        RETURN ROW ( 
+				            "Fiscal Year Number", __FiscalYearNumber,
+				            "Fiscal Year", __FiscalYear 
+				        )
+				    )
+				VAR __Step5 = 
+				    GENERATE (
+				        __Step3,
+				        VAR __LastTransactionDate = TODAY()
+				        VAR __FiscalYearNumber = [@YearNumber]
+				        VAR __Date = [Date]
+				        VAR __FiscalDayOfYearNumber = INT ( __Date - [@StartOfYear] + 1 )
+				        VAR __FiscalWeekNumber = INT ( CEILING ( __FiscalDayOfYearNumber / 7, 1 ) )
+				        VAR __FiscalQuarterNumber = IF ( __FiscalWeekNumber > 52, 4, ROUNDUP ( __FiscalWeekNumber / 13, 0 ) )
+				        VAR __FiscalQuarter = "FQ" & __FiscalQuarterNumber
+				        VAR __FiscalYearQuarterNumber = __FiscalYearNumber * 4 - 1 + __FiscalQuarterNumber
+				        VAR __FiscalYearQuarter = "FQ" & __FiscalQuarterNumber & "-" & __FiscalYearNumber
+				        VAR __FiscalWeekInQuarterNumber = IF ( __FiscalWeekNumber > 52, 14, __FiscalWeekNumber - 13 * ( __FiscalQuarterNumber - 1 ) )
+				        VAR __FiscalMonthNumber = 
+				            ( __FiscalQuarterNumber - 1 ) * 3
+				                + SWITCH (
+				                    TRUE,
+				                    __FiscalWeekInQuarterNumber <= __WeeksInP1, 1,
+				                    __FiscalWeekInQuarterNumber <= ( __WeeksInP1 + __WeeksInP2 ), 2,
+				                    3
+				                )
+				        VAR __FiscalYearMonthNumber = __FiscalYearNumber * 12 - 1 + __FiscalMonthNumber
+				        VAR __FiscalWeek = FORMAT ( __FiscalWeekNumber, "\F\W00" )
+				        VAR __FiscalYearWeekNumber = INT ( DIVIDE ( __Date - __FirstWeekReference, 7 ) ) + 1
+				        VAR __FiscalYearWeek = FORMAT ( __FiscalWeekNumber, "\F\W00" ) & "-" & __FiscalYearNumber
+				        VAR __WeekDayNumber = WEEKDAY ( __Date, __WeekDayCalculationType )
+				        VAR __WeekDay = FORMAT ( __Date, __DayFormatString )
+				        RETURN ROW ( 
+				            "Sequential Day Number", INT ( __Date ),
+				            "Fiscal Quarter Number", __FiscalQuarterNumber,
+				            "Fiscal Quarter", __FiscalQuarter,
+				            "Fiscal Year Quarter Number", __FiscalYearQuarterNumber,
+				            "Fiscal Year Quarter", __FiscalYearQuarter,
+				            "Fiscal Month Number", __FiscalMonthNumber,
+				            "Fiscal Year Month Number", __FiscalYearMonthNumber,
+				            "Fiscal Week Number", __FiscalWeekNumber,
+				            "Fiscal Week", __FiscalWeek,
+				            "Fiscal Year Week Number", __FiscalYearWeekNumber,
+				            "Fiscal Year Week", __FiscalYearWeek,
+				            "Day of Week Number", __WeekDayNumber,
+				            "Day of Week", __WeekDay,
+				            "Day of Fiscal Year Number", __FiscalDayOfYearNumber,
+				            "DateWithTransactions", __Date <= __LastTransactionDate 
+				        )
+				    )
+				VAR __Step6 = 
+				    GENERATE (
+				        __Step5,
+				        VAR __LastTransactionDate = TODAY()
+				        VAR __Date = [Date]
+				        VAR __FiscalYearNumber = [@YearNumber]
+				        VAR __FiscalDayOfYearNumber = INT ( __Date - [@StartOfYear] + 1 )
+				        VAR __FiscalWeekNumber = INT ( CEILING ( __FiscalDayOfYearNumber / 7, 1 ) )
+				        VAR __FiscalQuarterNumber = IF ( __FiscalWeekNumber > 52, 4, ROUNDUP ( __FiscalWeekNumber / 13, 0 ) )
+				        VAR __FiscalYearQuarterNumber = __FiscalYearNumber * 4 - 1 + __FiscalQuarterNumber
+				        VAR __FiscalWeekInQuarterNumber = IF ( __FiscalWeekNumber > 52, 14, __FiscalWeekNumber - 13 * ( __FiscalQuarterNumber - 1 ) )
+				        VAR __FiscalMonthNumber = 
+				            ( __FiscalQuarterNumber - 1 ) * 3
+				                + SWITCH (
+				                    TRUE,
+				                    __FiscalWeekInQuarterNumber <= __WeeksInP1, 1,
+				                    __FiscalWeekInQuarterNumber <= ( __WeeksInP1 + __WeeksInP2 ), 2,
+				                    3
+				                )
+				        VAR __FiscalYearMonthNumber = __FiscalYearNumber * 12 - 1 + __FiscalMonthNumber
+				        VAR __FiscalStartOfMonth = 
+				            MINX (
+				                FILTER ( __Step5 , [Fiscal Year Month Number] = __FiscalYearMonthNumber ),
+				                [Date]
+				            )
+				        VAR __FiscalMonth = FORMAT ( __FiscalStartOfMonth + 14, "\F\M " & __MonthFormatString )
+				        VAR __FiscalYearMonth = FORMAT ( __FiscalStartOfMonth + 14, "\F\M " & __MonthFormatString & " yyyy" )
+				        VAR __FiscalDayOfMonthNumber = INT ( __Date - __FiscalStartOfMonth + 1 )
+				        VAR __FiscalStartOfQuarter = 
+				            MINX (
+				                FILTER ( __Step5 , [Fiscal Year Quarter Number] = __FiscalYearQuarterNumber ),
+				                [Date]
+				            )
+				        VAR __FiscalDayOfQuarterNumber = INT ( __Date - __FiscalStartOfQuarter + 1 )
+				        RETURN ROW ( 
+				            "Fiscal Month", __FiscalMonth,
+				            "Fiscal Year Month", __FiscalYearMonth,
+				            "Day of Fiscal Month Number", __FiscalDayOfMonthNumber,
+				            "Day of Fiscal Quarter Number", __FiscalDayOfQuarterNumber 
+				        )
+				    )
+				VAR __Result = 
+				    SELECTCOLUMNS (
+				        __Step6,
+				        "Date", [Date],
+				        "Sequential Day Number", [Sequential Day Number],
+				        "Fiscal Year Number", [Fiscal Year Number],
+				        "Fiscal Year", [Fiscal Year],
+				        "Fiscal Quarter Number", [Fiscal Quarter Number],
+				        "Fiscal Quarter", [Fiscal Quarter],
+				        "Fiscal Year Quarter Number", [Fiscal Year Quarter Number],
+				        "Fiscal Year Quarter", [Fiscal Year Quarter],
+				        "Fiscal Month Number", [Fiscal Month Number],
+				        "Fiscal Month", [Fiscal Month],
+				        "Fiscal Year Month Number", [Fiscal Year Month Number],
+				        "Fiscal Year Month", [Fiscal Year Month],
+				        "Fiscal Week Number", [Fiscal Week Number],
+				        "Fiscal Week", [Fiscal Week],
+				        "Fiscal Year Week Number", [Fiscal Year Week Number],
+				        "Fiscal Year Week", [Fiscal Year Week],
+				        "Day of Week Number", [Day of Week Number],
+				        "Day of Week", [Day of Week],
+				        "Day of Fiscal Month Number", [Day of Fiscal Month Number],
+				        "Day of Fiscal Quarter Number", [Day of Fiscal Quarter Number],
+				        "Day of Fiscal Year Number", [Day of Fiscal Year Number],
+				        "DateWithTransactions", [DateWithTransactions]
+				    )
+				RETURN
+				    __Result
+				```
+
+	annotation SQLBI_Template = Dates
+
+	annotation SQLBI_TemplateTable = DateAutoTemplate
+
+	annotation SQLBI_CalendarType = Weekly
+

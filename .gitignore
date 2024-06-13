@@ -1,0 +1,8 @@
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+*.Report/**
+!definition.pbir
+
+*.Report copy/
+Data Team PBI - FinOps.Report copy/
+

@@ -1,0 +1,238 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0.800000011920929,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 1704,
+            "y": 0
+          },
+          "nodeIndex": "BigQuery Cost",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "nodeIndex": "GCP Billing",
+          "nodeLineageTag": "ad46f6e7-1914-4bb8-8d2e-127a84c495d9",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 284,
+            "y": 62
+          },
+          "nodeIndex": "projects",
+          "nodeLineageTag": "510a2b7a-1db9-4422-bb57-e8b03f25bd33",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 568,
+            "y": 74
+          },
+          "nodeIndex": "projects_ancestors",
+          "nodeLineageTag": "f6efe5a4-aa24-45e3-96a1-8ba7044513ce",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 852,
+            "y": 74
+          },
+          "nodeIndex": "projects_labels",
+          "nodeLineageTag": "0a4a15c0-6b8a-46b5-aecd-b21451d0bd34",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1136,
+            "y": 86
+          },
+          "nodeIndex": "services",
+          "nodeLineageTag": "dc1bc628-1ca7-4504-9254-d2ec2c29f581",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1420,
+            "y": 86
+          },
+          "nodeIndex": "skus",
+          "nodeLineageTag": "67b5f5da-6556-4407-86f6-af83eff1dcdb",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "Date",
+          "nodeLineageTag": "8a9182ed-599c-492d-91dc-d6cbc23fb64d",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "DateAutoTemplate",
+          "nodeLineageTag": "a7c4dba0-9ea5-4d95-8a89-e96cd0a2d5af",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 1,
+      "scrollPosition": {
+        "x": 227.99999237060547,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 592.95000076293945,
+            "y": 265
+          },
+          "nodeIndex": "GCP Billing",
+          "nodeLineageTag": "ad46f6e7-1914-4bb8-8d2e-127a84c495d9",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 954.45000076293945,
+            "y": 324
+          },
+          "nodeIndex": "projects",
+          "nodeLineageTag": "510a2b7a-1db9-4422-bb57-e8b03f25bd33",
+          "size": {
+            "height": 175,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 250,
+            "y": 157
+          },
+          "nodeIndex": "skus",
+          "nodeLineageTag": "67b5f5da-6556-4407-86f6-af83eff1dcdb",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 1343.9500007629395,
+            "y": 228.25
+          },
+          "nodeIndex": "projects_ancestors",
+          "nodeLineageTag": "f6efe5a4-aa24-45e3-96a1-8ba7044513ce",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 1343.9500007629395,
+            "y": 462
+          },
+          "nodeIndex": "projects_labels",
+          "nodeLineageTag": "0a4a15c0-6b8a-46b5-aecd-b21451d0bd34",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 590.75000095367432,
+            "y": 88.75
+          },
+          "nodeIndex": "services",
+          "nodeLineageTag": "dc1bc628-1ca7-4504-9254-d2ec2c29f581",
+          "size": {
+            "height": 124,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 913.499997138977,
+            "y": 0
+          },
+          "nodeIndex": "Date",
+          "nodeLineageTag": "8a9182ed-599c-492d-91dc-d6cbc23fb64d",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "GCP",
+      "zoomValue": 80,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "GCP",
+  "defaultDiagram": "All tables"
+}

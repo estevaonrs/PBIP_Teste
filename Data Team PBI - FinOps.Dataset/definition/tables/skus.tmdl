@@ -1,0 +1,33 @@
+table skus
+	lineageTag: 67b5f5da-6556-4407-86f6-af83eff1dcdb
+
+	column id
+		dataType: string
+		isKey
+		lineageTag: 4351cfa2-1c5e-47d7-8f8d-49ea72bb8705
+		summarizeBy: none
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column description
+		dataType: string
+		lineageTag: 34e3d0b9-3089-4dfd-92a8-cf611c1a490a
+		summarizeBy: none
+		sourceColumn: description
+
+		annotation SummarizationSetBy = Automatic
+
+	partition skus = m
+		mode: import
+		queryGroup: 'GCP BILLING'
+		source =
+				let
+				    Source = Value.NativeQuery(GoogleBigQuery.Database(){[Name="incentive-me-2019"]}[Data], "SELECT * FROM `incentive-me-2019.tmp.skus`", null, [EnableFolding=true])
+				in
+				    Source
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
